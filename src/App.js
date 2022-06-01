@@ -11,6 +11,7 @@ import Profile from "./components/Profile";
 import Transplants from "./components/Transplants";
 import Analysis from "./components/analysis/Analysis";
 import Prediction from "./components/prediction/Prediction";
+import ClassificationTree from "./components/prediction/ClassificationTree";
 class App extends Component {
 
     constructor(props) {
@@ -89,6 +90,15 @@ class App extends Component {
 
                             )}
 
+                            {(currentUser) && (
+                                <li className="nav-item">
+                                    <Link to={"/classification-tree"} className="nav-link">
+                                        Classification Tree
+                                    </Link>
+                                </li>
+
+                            )}
+
                             {(currentUser && !showAdminBoard) && (
                                 //TODO
                                 <li className="nav-item">
@@ -142,6 +152,7 @@ class App extends Component {
                             <Route exact path="/transplants" component={Transplants}/>
                             <Route exact path="/analysis" component={Analysis}/>
                             <Route exact path="/prediction" component={Prediction}/>
+                            <Route exact path="/classification-tree" component={ClassificationTree}/>
                         </Switch>
                     </div>
 

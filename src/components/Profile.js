@@ -21,25 +21,6 @@ export default class Profile extends Component {
 
         if (!currentUser) this.setState({redirect: "/home"});
         this.setState({currentUser: currentUser, userReady: true})
-
-        // UserService.getAllGames().then(
-        //     response => {
-        //
-        //         const userGames = response.data.filter((g) => {
-        //                 return g.userDto.id === currentUser.id
-        //             }
-        //         )
-        //
-        //         this.setState(
-        //             {
-        //                 games: userGames
-        //             }
-        //         )
-        //     },
-        //     error => {
-        //         console.log(error.toString());
-        //     }
-        // )
     }
 
     render() {
@@ -58,28 +39,9 @@ export default class Profile extends Component {
                                     <h3>
                                         <strong>{currentUser.username}</strong> Profile
                                         <div/>
-                                        <strong>{currentUser.access_token}</strong> Token
                                     </h3>
                                 </header>
-                        {/*<div className="ui card centered">*/}
-                        {/*    <div className="top centered content">*/}
-                        {/*        <p>*/}
-                        {/*            <strong>Email:</strong>{" "}*/}
-                        {/*            {currentUser.email}*/}
-                        {/*        </p>*/}
-                        {/*        <p>*/}
-                        {/*            <strong>Games played:</strong>{" "}*/}
-                        {/*            {this.state.gamesPlayed.length}*/}
-                        {/*        </p>*/}
-                        {/*        <p>*/}
-                        {/*            <strong>Authorities:</strong>*/}
-                        {/*            <ul>*/}
-                        {/*                {currentUser.roles &&*/}
-                        {/*                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}*/}
-                        {/*            </ul>*/}
-                        {/*        </p>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+
                     </div> : null}
             </div>
         );

@@ -141,8 +141,8 @@ export default class Analysis extends Component {
             "groupHla",
             "postRelapse",
             "risk_group",
-            // "CD34perKg",
-            // "CD3perKg"
+            // "cd3perKg",
+            // "cd34perKg"
         ]
     }
 

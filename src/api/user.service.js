@@ -7,7 +7,7 @@ class UserService {
 
 
     getSurvivalResultsForDataGrid() {
-        return axios.get(API_URL + 'survivalResult/dataGrid', {
+        return axios.get(API_URL + 'survival-result/dataGrid', {
             headers:
                 authHeader()
         });
@@ -15,7 +15,7 @@ class UserService {
 
     getHistogramData(factor, classFactor) {
 
-        return axios.get(API_URL + 'survivalResult/histogram',
+        return axios.get(API_URL + 'survival-result/histogram',
             {
                 headers: authHeader(),
                 params: {
@@ -25,7 +25,7 @@ class UserService {
             });
     }
 
-    getTransplantDataByUsername(username){
+    getTransplantDataByUsername(username) {
         return axios.get(API_URL + 'transplant/user',
             {
                 headers: authHeader(),
@@ -37,20 +37,35 @@ class UserService {
     }
 
     getChiSquareData(factor, classFactor, significance) {
-        console.log("Hello from user.service getChiSquareData()!")
-        console.log("factor: "+factor )
-        return axios.get(API_URL + 'survivalResult/chisquaretest',
-            {
-                headers: authHeader(),
-                params: {
-                    factor,
-                    classFactor,
-                    significance
-                }
-            });
+        return axios({
+            method: 'post',
+            url: API_URL + 'survival-result/chi-square',
+            headers: authHeader(),
+            data: {
+                factor: factor,
+                classFactor: classFactor,
+                significance: significance
+
+            }
+        });
     }
 
+    getPrediction(transplant) {
+        return axios({
+            method: 'post',
+            url: API_URL + 'prediction/predict',
+            headers: authHeader(),
+            data: transplant
+        });
+    }
 
+    getClassificationTree() {
+        return axios({
+            method: 'get',
+            url: API_URL + 'prediction/tree',
+            headers: authHeader()
+        });
+    }
 }
 
 export default new UserService();
