@@ -42,24 +42,6 @@ export default class Analysis extends Component {
         this.setState({
             currentUser: currentUser,
             userReady: true
-            // histogramData: {
-            //     title: " HLA group on extensive chronic GvHD",
-            //     labels: ["HLA matched", "one antigen", "one allele"], //row
-            //     datasets:[
-            //         {
-            //             label: "yes", //column
-            //             data: [1, 2, 3]
-            //         },
-            //         {
-            //             label: "no",
-            //             data: [1, 2, 3]
-            //         },
-            //         {
-            //             label: "?",
-            //             data: [1, 2, 3]
-            //         }
-            //     ]
-            // }
         });
 
         this.updateData()

@@ -7,7 +7,7 @@ class UserService {
 
 
     getSurvivalResultsForDataGrid() {
-        return axios.get(API_URL + 'survival-result/dataGrid', {
+        return axios.get(API_URL + 'survival-result/all', {
             headers:
                 authHeader()
         });
