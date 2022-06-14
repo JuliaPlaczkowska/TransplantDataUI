@@ -12,6 +12,7 @@ import Transplants from "./components/data/Transplants";
 import Analysis from "./components/analysis/Analysis";
 import Prediction from "./components/prediction/Prediction";
 import ClassificationTree from "./components/prediction/ClassificationTree";
+import TransplantInputForm from "./components/data/TransplantInputForm";
 class App extends Component {
 
     constructor(props) {
@@ -19,7 +20,6 @@ class App extends Component {
         this.logOut = this.logOut.bind(this);
 
         this.state = {
-            showAdminBoard: false,
             currentUser: undefined,
         };
     }
@@ -29,8 +29,7 @@ class App extends Component {
 
         if (user) {
             this.setState({
-                currentUser: user,
-                showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+                currentUser: user
             });
         }
     }
@@ -40,7 +39,7 @@ class App extends Component {
     }
 
     render() {
-        const {currentUser, showAdminBoard} = this.state;
+        const {currentUser} = this.state;
 
         return (
             <div>
@@ -51,20 +50,13 @@ class App extends Component {
                             Transplant Data
                         </Link>
                         <div className="navbar-nav mr-auto">
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to={"/home"} className="nav-link">*/}
-                            {/*        Home*/}
-                            {/*    </Link>*/}
-                            {/*</li>*/}
-
-
-                            {showAdminBoard && (
-                                //TODO
+                            {(currentUser) && (
                                 <li className="nav-item">
-                                    <Link to={"/admin"} className="nav-link">
-                                        Admin
+                                    <Link to={"/transplants"} className="nav-link">
+                                        Transplants
                                     </Link>
                                 </li>
+
                             )}
                             {(currentUser ) && (
                                 <li className="nav-item">
@@ -75,21 +67,11 @@ class App extends Component {
                             )}
                             {(currentUser ) && (
                                 <li className="nav-item">
-                                    <Link to={"/prediction"} className="nav-link">
+                                    <Link to={"/new-transplant"} className="nav-link">
                                         Prediction
                                     </Link>
                                 </li>
                             )}
-
-                            {(currentUser) && (
-                                <li className="nav-item">
-                                    <Link to={"/transplants"} className="nav-link">
-                                        Transplants
-                                    </Link>
-                                </li>
-
-                            )}
-
                             {(currentUser) && (
                                 <li className="nav-item">
                                     <Link to={"/classification-tree"} className="nav-link">
@@ -97,15 +79,6 @@ class App extends Component {
                                     </Link>
                                 </li>
 
-                            )}
-
-                            {(currentUser && !showAdminBoard) && (
-                                //TODO
-                                <li className="nav-item">
-                                    <Link to={"/profile"} className="nav-link">
-                                        {currentUser.username}
-                                    </Link>
-                                </li>
                             )}
                         </div>
 
@@ -137,20 +110,12 @@ class App extends Component {
 
                     <div className="container mt-3">
                         <Switch>
-                            {/*<Route exact path={["/", "/home"]} component={HistogramChart}/>*/}
-                            {/*<Route exact path="/sets" component={SetsList}/>*/}
-                            {/*<Route exact path="/set/propose" component={ProposeNewSet}/>*/}
-                            {/*<Route exact path="/game"*/}
-                            {/*       render={(props) => <Flashcards {...props}/>}/>*/}
-                            {/*<Route exact path="/ranking"*/}
-                            {/*       render={(props) => <Ranking {...props}/>}/>*/}
-                            {/*<Route exact path="/progress" component={Progress}/>*/}
-
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/register" component={Register}/>
-                            <Route exact path={["/", "/home","/profile"]} component={Profile}/>
+                            <Route exact path={["/", "/home"]} component={Profile}/>
                             <Route exact path="/transplants" component={Transplants}/>
                             <Route exact path="/analysis" component={Analysis}/>
+                            <Route exact path="/new-transplant" component={TransplantInputForm}/>
                             <Route exact path="/prediction" component={Prediction}/>
                             <Route exact path="/classification-tree" component={ClassificationTree}/>
                         </Switch>

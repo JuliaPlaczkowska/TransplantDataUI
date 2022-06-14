@@ -130,7 +130,7 @@ export default class Login extends React.Component {
                                 disabled={this.state.loading}
                             >
                                 {this.state.loading && (
-                                    <span className="spinner-border spinner-border-sm"></span>
+                                    <span className="spinner-border spinner-border-sm"/>
                                 )}
                                 <span>Login</span>
                             </button>
@@ -153,7 +153,5 @@ export default class Login extends React.Component {
                 </div>
             </div>
         )
-
     }
-
 }

@@ -3,13 +3,8 @@ import React from "react";
 
 export function ChiSquareTest(props) {
 
-
-
     const pValue = props.chiSquare.pvalue;
     const rejected = props.chiSquare.rejected;
-
-    console.log("p value: "+pValue);
-    console.log("rejected: "+rejected);
 
     return (
         <div>
