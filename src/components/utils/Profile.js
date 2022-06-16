@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router-dom";
 import AuthService from "../../api/auth.service";
-import UserService from "../../api/user.service";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -31,16 +30,15 @@ export default class Profile extends Component {
         const {currentUser} = this.state;
 
         return (
-            <div className="ui container" >
+            <div className="ui container">
                 {(this.state.userReady) ?
                     <div className="ui divided items">
 
-                                <header className="jumbotron">
-                                    <h3>
-                                        <strong>{currentUser.username}</strong> Profile
-                                        <div/>
-                                    </h3>
-                                </header>
+                        <header className="jumbotron">
+                            <h3>
+                                Welcome to <strong>Transplant Data App</strong>!
+                            </h3>
+                        </header>
 
                     </div> : null}
             </div>

@@ -1,6 +1,5 @@
-
 import React, {Component} from "react";
-import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import "./App.css";
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,9 +9,8 @@ import Register from "./components/authorization/Register";
 import Profile from "./components/utils/Profile";
 import Transplants from "./components/data/Transplants";
 import Analysis from "./components/analysis/Analysis";
-import Prediction from "./components/prediction/Prediction";
-import ClassificationTree from "./components/prediction/ClassificationTree";
 import TransplantInputForm from "./components/data/TransplantInputForm";
+
 class App extends Component {
 
     constructor(props) {
@@ -45,7 +43,7 @@ class App extends Component {
             <div>
 
                 <BrowserRouter>
-                    <nav className="navbar navbar-expand navbar-dark bg-dark " >
+                    <nav className="navbar navbar-expand navbar-dark bg-dark ">
                         <Link to={"/"} className="navbar-brand">
                             Transplant Data
                         </Link>
@@ -58,27 +56,19 @@ class App extends Component {
                                 </li>
 
                             )}
-                            {(currentUser ) && (
+                            {(currentUser) && (
                                 <li className="nav-item">
                                     <Link to={"/analysis"} className="nav-link">
                                         Analysis
                                     </Link>
                                 </li>
                             )}
-                            {(currentUser ) && (
+                            {(currentUser) && (
                                 <li className="nav-item">
                                     <Link to={"/new-transplant"} className="nav-link">
                                         Prediction
                                     </Link>
                                 </li>
-                            )}
-                            {(currentUser) && (
-                                <li className="nav-item">
-                                    <Link to={"/classification-tree"} className="nav-link">
-                                        Classification Tree
-                                    </Link>
-                                </li>
-
                             )}
                         </div>
 
@@ -116,8 +106,6 @@ class App extends Component {
                             <Route exact path="/transplants" component={Transplants}/>
                             <Route exact path="/analysis" component={Analysis}/>
                             <Route exact path="/new-transplant" component={TransplantInputForm}/>
-                            <Route exact path="/prediction" component={Prediction}/>
-                            <Route exact path="/classification-tree" component={ClassificationTree}/>
                         </Switch>
                     </div>
 

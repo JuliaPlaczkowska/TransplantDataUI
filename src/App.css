@@ -15,6 +15,11 @@
   padding: 40px 40px;
 }
 
+.card-container3.card {
+  max-width: 500px;
+  padding: 40px 40px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

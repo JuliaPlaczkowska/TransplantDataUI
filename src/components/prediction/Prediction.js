@@ -1,19 +1,22 @@
 import {Component} from "react";
 import AuthService from "../../api/auth.service";
-import UserService from "../../api/user.service";
-import {isNullOrUndef} from "chart.js/helpers";
+import ClassificationTree from "./ClassificationTree";
+import {Col, Container, Row} from "react-bootstrap";
 
 export default class Prediction extends Component {
+    s
 
     constructor(props) {
         super(props);
-
+        const distribution = props.location.state.prediction.distribution.split(',');
         this.state = {
             currentUser: null,
             userReady: false,
-            transplants: null,
-            transplant: null,
-            prediction: null
+            transplant: props.location.state.transplant,
+            classifiedAs: props.location.state.prediction.classifiedAs,
+            zeroProbability: distribution[0],
+            oneProbability: distribution[1],
+            tree: props.location.state.prediction.tree
         }
     }
 
@@ -28,117 +31,33 @@ export default class Prediction extends Component {
             },
             () => {
                 console.log("current user username: " + this.state.currentUser.username);
-                this.setState({
-                        transplant: {
-                            recipient: {
-                                patient: {
-                                    number: 22000000001,
-                                    age: 9.6,
-                                    bloodABO: "A",
-                                    presenceOfCMV: "present"
-                                },
-                                bloodRh: "plus",
-                                bodyMass: 35.0,
-                                disease: "ALL",
-                                diseaseGroup: "malignant",
-                                riskGroup: "high"
-                            },
-                            donor: {
-                                patient: {
-                                    number: 22000000000,
-                                    age: 22.830137,
-                                    bloodABO: "A",
-                                    presenceOfCMV: "present"
-                                },
-                                stemCellSource: "peripheral_blood"
-                            },
-                            matchHLA: 10,
-                            mismatchHLA: false,
-                            antigen: 0,
-                            allele: 0,
-                            group1HLA: "matched",
-                            postRelapse: false,
-                            cd34perKg: 7.2,
-                            cd3perKg: 5.38
-                        }
-                    },
-                    () => {
-                        console.log(this.state.transplant)
-                        this.getPrediction()
-                    });
             }
         );
-
-
     }
 
-    getTransplantData() {
-        UserService.getTransplantDataByUsername(
-            this.state.currentUser.username
-        )
-            .then(
-                response => {
-                    if (!isNullOrUndef(response)) {
-                        const responseTransplants = response.data;
-                        const responseTransplant = response.data[0];
-                        this.setState(
-                            {
-                                transplants: responseTransplants,
-                                transplant: responseTransplant
-                            },
-                            () => {
-                                console.log({responseTransplants})
-                                console.log({responseTransplant})
-                                this.getPrediction()
-                            }
-                        )
-                    } else console.log("response.data length is 0")
-                },
-                error => {
-                    console.log("Error acquiring data:" + error)
-                    this.setState({
-                        sets: [
-                            {name: error.toString()}
-                        ]
-                    });
-                }
-            )
-    }
-
-    getPrediction() {
-        UserService.getPrediction(
-            this.state.transplant
-        )
-            .then(
-                response => {
-                    if (!isNullOrUndef(response)) {
-                        this.setState(
-                            {
-                                prediction: response.data
-                            },
-                            () => {
-                                console.log("prediction: ")
-                                console.log([response])
-                            }
-                        )
-                    } else console.log("response.data length is 0")
-                },
-                error => {
-                    console.log("Error acquiring data:" + error)
-                    this.setState({
-                        sets: [
-                            {name: error.toString()}
-                        ]
-                    });
-                }
-            )
+    floatFormatter(x) {
+        return Number.parseFloat(x).toFixed(3);
     }
 
     render() {
         return (
-            <div>
+            <Container>
+                <Row>
+                    <Col>
+                        <ClassificationTree tree={this.state.tree}/>
+                    </Col>
+                    <Col>
+                        <div className="card card-container3">
+                            <h3>Prediction</h3>
+                            <h3></h3>
+                            <h3>Classified as : {this.state.classifiedAs}</h3>
+                            <h3>Probability of 0 : {this.floatFormatter(this.state.zeroProbability)}</h3>
+                            <h3>Probability of 1 : {this.floatFormatter(this.state.oneProbability)}</h3>
+                        </div>
+                    </Col>
+                </Row>
 
-            </div>
+            </Container>
         );
     }
 }

@@ -60,41 +60,6 @@ export default class TransplantInputForm extends React.Component {
         };
     }
 
-    dummy() {
-        return {
-            recipient: {
-                patient: {
-                    number: 22000000001,
-                    age: 9.6,
-                    bloodABO: "A",
-                    presenceOfCMV: "present"
-                },
-                bloodRh: "plus",
-                bodyMass: 35.0,
-                disease: "ALL",
-                diseaseGroup: "malignant",
-                riskGroup: "high"
-            },
-            donor: {
-                patient: {
-                    number: 22000000000,
-                    age: 22.830137,
-                    bloodABO: "A",
-                    presenceOfCMV: "present"
-                },
-                stemCellSource: "peripheral_blood"
-            },
-            matchHLA: 10,
-            mismatchHLA: false,
-            antigen: 0,
-            allele: 0,
-            group1HLA: "matched",
-            postRelapse: false,
-            cd34perKg: 7.2,
-            cd3perKg: 5.38
-        }
-    }
-
     handleSubmit(e) {
         e.preventDefault();
 
@@ -105,15 +70,17 @@ export default class TransplantInputForm extends React.Component {
 
         this.form.validateAll();
         const transplant = this.mapTargetToTransplant(e.target)
-        console.log("MAPPED TRANSPLANT: ")
-        console.log(transplant)
-        console.log(transplant.recipient)
         if (this.checkBtn.context._errors.length === 0) {
-            // UserService.getPrediction(this.dummy()).then(
             UserService.getPrediction(transplant).then(
-                () => {
-                    console.log("successful prediction")
-                    this.props.history.push("/prediction");
+                response => {
+                    console.log(response.data)
+                    this.props.history.push({
+                        pathname: "/prediction",
+                        state: {
+                            transplant: transplant,
+                            prediction: response.data
+                        }
+                    });
                     window.location.reload();
                 },
                 error => {
